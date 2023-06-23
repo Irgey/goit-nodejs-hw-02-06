@@ -20,7 +20,9 @@ const register = async (req, res) => {
 
   res
     .status(201)
-    .json({ user: { email: newUser.email, subscription: "starter" } });
+    .json({
+      user: { email: newUser.email, subscription: newUser.subscription },
+    });
 };
 
 const login = async (req, res) => {
@@ -33,7 +35,7 @@ const login = async (req, res) => {
   if (!passwordCompare) {
     throw HttpError(401, "Email or password is wrong");
   }
-  const { _id: id } = user;
+  const { _id: id, subscription } = user;
   const payload = {
     id,
   };
@@ -41,6 +43,7 @@ const login = async (req, res) => {
   await User.findByIdAndUpdate(id, { token });
   res.json({
     token,
+    user: { email, subscription },
   });
 };
 
