@@ -23,4 +23,13 @@ const subscriptionUpdateSchema = Joi.object({
     }),
 });
 
-module.exports = { userCheckSchema, subscriptionUpdateSchema };
+const userEmailSchema = Joi.object({
+  email: Joi.string().pattern(emailRegexp).required().messages({
+    "any.required": "missing required email field",
+  }),
+});
+module.exports = {
+  userCheckSchema,
+  subscriptionUpdateSchema,
+  userEmailSchema,
+};
