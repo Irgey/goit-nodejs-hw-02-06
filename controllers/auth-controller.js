@@ -73,8 +73,7 @@ const updateSubscription = async (req, res) => {
 };
 
 const updateAvatar = async (req, res) => {
-  const { _id } = req.body;
-  console.log(req.body, req.file);
+  const { _id } = req.user;
   const { path: oldPath, filename } = req.file;
   const newPath = path.join(avatarsDir, filename);
   await Jimp.read(oldPath)
